@@ -35,8 +35,26 @@ export default function ContactForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const templateParams = {
+      name: formData.name,
+      contact: formData.contact,
+      whatsapp: formData.whatsapp,
+      email: formData.email,
+      location: formData.location,
+      business: formData.business,
+      queryAbout: formData.queryAbout,
+      minBudget: formData.minBudget,
+      maxBudget: formData.maxBudget,
+    };
+
     emailjs
-      .send("service_did4t", "template_a1c9a66", formData, "RI0J4kfrV7kdBpW08")
+      .send(
+        "service_kz1a1wi",
+        "template_jeraeos",
+        templateParams,
+        "r_QpI7QihqD9mJqNl"
+      )
       .then(
         (response) => {
           console.log("SUCCESS!", response.status, response.text);
@@ -111,42 +129,20 @@ export default function ContactForm() {
               Query About:
             </label>
             <div className="flex space-x-4">
-              <label className="flex items-center space-x-2">
-                <input
-                  type="radio"
-                  name="queryAbout"
-                  value="Website"
-                  onChange={handleRadioChange}
-                  className="w-4 h-4"
-                  checked={formData.queryAbout === "Website"}
-                  required
-                />
-                <span>Website</span>
-              </label>
-              <label className="flex items-center space-x-2">
-                <input
-                  type="radio"
-                  name="queryAbout"
-                  value="App"
-                  onChange={handleRadioChange}
-                  className="w-4 h-4"
-                  checked={formData.queryAbout === "App"}
-                  required
-                />
-                <span>App</span>
-              </label>
-              <label className="flex items-center space-x-2">
-                <input
-                  type="radio"
-                  name="queryAbout"
-                  value="Both"
-                  onChange={handleRadioChange}
-                  className="w-4 h-4"
-                  checked={formData.queryAbout === "Both"}
-                  required
-                />
-                <span>Both Website & App</span>
-              </label>
+              {["Website", "App", "Both"].map((option) => (
+                <label key={option} className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    name="queryAbout"
+                    value={option}
+                    onChange={handleRadioChange}
+                    className="w-4 h-4"
+                    checked={formData.queryAbout === option}
+                    required
+                  />
+                  <span>{option}</span>
+                </label>
+              ))}
             </div>
           </div>
 
@@ -184,7 +180,7 @@ export default function ContactForm() {
         {isSubmitted && (
           <div className="text-center mt-4">
             <a
-              href="https://yourwebsite.com"
+              href="https://zoomsterhub.com"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-2 inline-block p-3 bg-[#00B6B6] text-white font-semibold rounded-lg hover:bg-[#008C8C] transition duration-300"
